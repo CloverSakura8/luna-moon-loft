@@ -47,7 +47,7 @@ A small local web page shows the same loft, with the checklist, quotes, a Japane
 | `assets/` | The original artwork |
 | `companion.py`, `japanese_session.py` | Laptop companion: a local-only web server, standard library only |
 | `Luna_Postcards.html`, `japanese.html`, `*.js`, `loft.css` | The laptop pages |
-| `voice/` | My changes to a third-party live-voice SDK example, for conversation on the CoreS3 |
+| `voice/` | My changes to the M5Stack example of [openai/openai-live-esp32](https://github.com/openai/openai-live-esp32), for conversation on the CoreS3 |
 | `test/` | Tests for the companion, the USB framing and the shared board logic |
 | `retired/` | An earlier idea, kept for reference |
 
@@ -96,4 +96,4 @@ c++ -std=c++17 -Isrc test/wand_logic_test.cpp -o /tmp/wand_test && /tmp/wand_tes
 
 ## Licence
 
-The source code is under the MIT licence. The artwork in `assets/` is included so the project builds and runs; please ask before reusing it elsewhere. The files in `voice/` are modified from a third-party project and remain under its licence (`voice/LICENSE-upstream`).
+The source code is under the MIT licence. The artwork in `assets/` is included so the project builds and runs; please ask before reusing it elsewhere. The files in `voice/` are modified from openai/openai-live-esp32 and remain under its Apache-2.0 licence (`voice/LICENSE-upstream`).

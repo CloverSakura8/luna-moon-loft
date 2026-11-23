@@ -22,5 +22,5 @@ SOFTWARE.
 
 The MIT licence above covers the source code. The artwork in assets/ is
 included so the project builds and runs; please ask before reusing it elsewhere.
-The files in voice/ are modified from a third-party project and remain under
-its licence; see voice/LICENSE-upstream and voice/README.md.
+The files in voice/ are modified from openai/openai-live-esp32 and remain under
+its Apache-2.0 licence; see voice/LICENSE-upstream and voice/README.md.
