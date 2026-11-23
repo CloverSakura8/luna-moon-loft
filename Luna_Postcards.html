@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#25192b">
+  <title>Tanya’s Moon Loft · Luna</title>
+  <link rel="stylesheet" href="loft.css">
+  <script defer src="wire.js"></script>
+  <script defer src="app.js"></script>
+  <script defer src="assets/morning.js"></script>
+  <script defer src="desk.js"></script>
+  <script defer src="quotes.js"></script>
+  <script defer src="booth.js"></script>
+</head>
+<body>
+  <main class="loft">
+    <div class="compact">
+      <header class="compact-cap">
+        <h1><span class="crescent" aria-hidden="true"></span>Tanya’s Moon Loft</h1>
+        <button id="weatherOpen" type="button" class="weather-summary" aria-haspopup="dialog" aria-label="New York City temperature and weather source"><span>NYC</span><strong id="weatherReading" aria-live="polite">Checking…</strong></button>
+        <button id="settingsOpen" type="button" class="cap-button" aria-haspopup="dialog">Settings</button>
+      </header>
+      <section class="room" aria-label="Explore the objects in your loft">
+        <img class="room-art" src="assets/loft.png" width="1448" height="1086" alt="A moonlit New York loft. Tanya and Luna sit by the window, surrounded by a laptop, film camera, hiking boots, Japanese notebook, dance mirror and kitchen." draggable="false">
+        <button class="hotspot work" id="workDesk" aria-haspopup="dialog" aria-label="Work — open the AI lawyer’s desk and morning checklist" type="button"></button>
+        <button class="hotspot create" id="boothOpen" aria-haspopup="dialog" aria-label="Film camera — open the moon photobooth album" type="button"></button>
+        <button class="hotspot explore" data-mode="explore" aria-label="Explore — map and hiking boots" type="button"></button>
+        <a class="hotspot japanese" data-mode="japanese" href="japanese.html" aria-label="Japanese — open the kana notebook"></a>
+        <button class="hotspot dance" data-mode="dance" aria-label="Dance — mirror and lightstick" type="button"></button>
+        <button class="hotspot kitchen" data-mode="kitchen" aria-label="Kitchen — stove and kettle" type="button"></button>
+        <button class="hotspot luna" id="lunaCat" aria-label="Luna the cat — show another inspirational quote" type="button"><span class="luna-tag" aria-hidden="true">✦ Quote</span></button>
+      </section>
+      <footer class="compact-foot">
+        <button id="quoteTile" type="button" class="quote-tile" aria-label="Inspirational quote. Press for a different one.">
+          <span class="quote-moon" aria-hidden="true">☾</span>
+          <span class="quote-body"><small>Luna says · press for another</small><span id="quoteText" aria-live="polite"></span></span>
+          <span class="foot-arrow" aria-hidden="true">✦</span>
+        </button>
+      </footer>
+    </div>
+  </main>
+
+  <dialog id="creator" class="paper-dialog studio" aria-labelledby="creatorTitle">
+    <div class="paper-inner">
+      <header class="paper-head">
+        <div><h2 id="creatorTitle">Creator Postcards</h2></div>
+        <form method="dialog"><button id="loftHome" class="close" aria-label="Return to the loft" title="Return to the loft">×</button></form>
+      </header>
+      <div class="recorder">
+        <div class="record-top">
+          <label class="format-label" for="kind">Save as
+            <select id="kind"><option value="reel">Instagram Reel</option><option value="substack">Substack idea</option></select>
+          </label>
+          <button type="button" id="sound" aria-pressed="true" class="utility">Voice on</button>
+        </div>
+        <div class="record-controls">
+          <div class="voice-controls">
+            <button id="mic" type="button" class="ink-button record-button"><span data-mic-label>Record an idea</span></button>
+            <div class="rec-meter" aria-live="off"><span id="phase">Ready</span><span id="timer">0:00</span></div>
+          </div>
+          <div class="loft-stamp" aria-hidden="true"><span class="camera-print"></span></div>
+        </div>
+        <p id="status" class="status" role="status"></p>
+      </div>
+      <div class="scene-input">
+        <label for="scene">What’s around you? <span class="qualifier">Optional</span></label>
+        <input id="scene" type="text" placeholder="A bookstore window, a passing train…">
+      </div>
+      <details class="write-in">
+        <summary>Write an idea instead</summary>
+        <label for="words" class="sr-only">Your written idea</label>
+        <textarea id="words" rows="3" placeholder="An idea I want to remember…"></textarea>
+        <button id="save" type="button" class="paper-button">Save written idea</button>
+      </details>
+      <section id="postcard" class="reply-card" aria-live="polite" aria-label="Your postcard">
+        <article class="postcard">
+          <div class="pc-message">
+            <p class="pc-kicker" id="currentTitle"></p>
+            <p class="pc-note" id="response"></p>
+            <p class="pc-sign">— Tanya, via Luna</p>
+          </div>
+          <div class="pc-side">
+            <div class="pc-stamp" aria-hidden="true"><span class="camera-print"></span><span class="pc-seal">☾</span></div>
+            <p class="pc-postmark" id="pcPostmark"></p>
+            <p class="pc-address" id="pcFiled"></p>
+          </div>
+        </article>
+        <div id="detail" class="post-detail"></div>
+        <h3 id="shotsTitle" class="shots-title" hidden>Film these three</h3>
+        <ol id="shots"></ol>
+        <div class="reply-actions">
+          <button id="replayVoice" type="button" class="utility" hidden>Hear the shots again</button>
+          <button id="retry" type="button" class="utility" hidden>Try again</button>
+          <a id="notionLink" class="paper-link" target="_blank" rel="noopener noreferrer" hidden>Open in Notion ↗</a>
+        </div>
+      </section>
+    </div>
+  </dialog>
+
+  <dialog id="boothDialog" class="paper-dialog booth-dialog" aria-labelledby="boothTitle">
+    <div class="paper-inner">
+      <header class="paper-head"><h2 id="boothTitle">Moon photobooth</h2>
+        <form method="dialog"><button class="close" aria-label="Close photobooth">×</button></form>
+      </header>
+      <p class="services-help">Double-press Pocket Luna’s front button, or tap Photobooth on the CoreS3. Photos stay on this Mac, in this browser.</p>
+      <div class="record-top"><button id="boothSnap" type="button" class="ink-button">Take a photo</button><span id="boothStatus" class="status" role="status"></span></div>
+      <figure id="boothLatest" class="booth-latest" hidden><img id="boothImage" alt="Your latest photobooth picture"><figcaption><a id="boothDownload" class="paper-link" download>Download this photo</a></figcaption></figure>
+      <ul id="boothStrip" class="booth-strip" aria-label="Earlier photos"></ul>
+    </div>
+  </dialog>
+
+  <dialog id="satchel" class="paper-dialog" aria-labelledby="satchelTitle">
+    <div class="paper-inner">
+      <header class="paper-head"><h2 id="satchelTitle">My postcard satchel</h2>
+        <form method="dialog"><button class="close" aria-label="Close satchel" title="Close satchel">×</button></form>
+      </header>
+      <ul id="list" class="post-list"></ul>
+
+    </div>
+  </dialog>
+
+  <dialog id="settings" class="paper-dialog" aria-labelledby="settingsTitle">
+    <div class="paper-inner">
+      <header class="paper-head"><h2 id="settingsTitle">Loft settings</h2>
+        <form method="dialog"><button class="close" aria-label="Close settings" title="Close settings">×</button></form>
+      </header>
+      <div class="setting-group">
+        <h3>Connected services</h3>
+        <p class="services-help">Your key powers live Japanese conversation with Luna. It stays in the companion’s memory on this Mac.</p>
+        <label for="apiKey">AI service API key</label>
+        <input id="apiKey" type="password" autocomplete="off" spellcheck="false">
+        <button id="connectServices" type="button" class="ink-button">Connect</button>
+        <p id="serviceStatus" class="status" role="status"></p>
+      </div>
+      <div class="setting-group">
+        <h3>Inspirational quotes</h3>
+        <p class="services-help">One quote per line, up to 24. They show on the quote tile here and on the CoreS3 after it connects.</p>
+        <label for="quoteList" class="sr-only">Your quotes, one per line</label>
+        <textarea id="quoteList" rows="6" spellcheck="true"></textarea>
+        <button id="quoteSave" type="button" class="paper-button">Save quotes</button>
+        <p id="quoteStatus" class="status" role="status"></p>
+      </div>
+      <div class="setting-group">
+        <h3>CoreS3 compact</h3>
+        <button id="usb" type="button" class="paper-button">Connect CoreS3</button>
+        <p id="connection" class="status" role="status">CoreS3 disconnected.</p>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="weatherDialog" class="paper-dialog weather-dialog" aria-labelledby="weatherTitle">
+    <div class="paper-inner">
+      <header class="paper-head"><h2 id="weatherTitle">New York weather</h2>
+        <form method="dialog"><button class="close" aria-label="Close weather">×</button></form>
+      </header>
+      <p class="weather-value" id="weatherDetail">Checking the temperature…</p>
+      <p class="weather-note" id="weatherAt" role="status"></p>
+      <div class="weather-details"><a class="paper-link" href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Temperature data by Open-Meteo ↗</a>
+        <button type="button" class="utility" id="weatherRefresh">Refresh</button></div>
+    </div>
+  </dialog>
+
+  <dialog id="workPanel" class="paper-dialog desk-dialog" aria-labelledby="workTitle">
+    <div class="paper-inner">
+      <header class="paper-head desk-head"><span class="desk-art" aria-hidden="true"></span><div class="desk-heading"><p id="workDate" class="desk-date"></p><h2 id="workTitle">AI lawyer’s desk</h2></div>
+        <form method="dialog"><button class="close" aria-label="Close work desk">×</button></form>
+      </header>
+      <div class="checklist-head"><h3>Morning checklist</h3><span id="workProgress"></span></div>
+      <p id="workSource" class="desk-source"></p>
+      <ul id="workTasks" class="desk-tasks" aria-label="Morning checklist"></ul>
+      <div id="workPages" class="desk-pages" hidden>
+        <button id="workPrev" class="utility" type="button" aria-label="Previous three tasks">←</button>
+        <span id="workPage"></span>
+        <button id="workNext" class="utility" type="button" aria-label="Next three tasks">→</button>
+      </div>
+      <div class="desk-kindness"><span class="desk-star" aria-hidden="true">✦</span>
+        <p id="workMessage" role="status"></p>
+        <button id="workUndo" class="utility" type="button" hidden>Undo</button>
+      </div>
+      <form id="workAdd" class="desk-add" autocomplete="off">
+        <label for="workNew">Add to today</label>
+        <div><input id="workNew" type="text" maxlength="220" placeholder="What needs your attention?" required><button class="ink-button" type="submit">Add</button></div>
+      </form>
+      <details id="workCarry" class="carry-in" hidden>
+        <summary id="carryTitle">Choose earlier tasks</summary>
+        <ul id="carryList" class="carry-list"></ul>
+      </details>
+    </div>
+  </dialog>
+
+  <dialog id="modeDialog" class="paper-dialog mode-dialog" aria-labelledby="modeTitle">
+    <div class="paper-inner">
+      <header class="paper-head"><h2 id="modeTitle">Loft</h2>
+        <form method="dialog"><button class="close" aria-label="Return to the loft" title="Return to the loft">×</button></form>
+      </header>
+      <p id="modeCopy"></p>
+    </div>
+  </dialog>
+</body>
+</html>

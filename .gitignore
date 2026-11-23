@@ -1,0 +1,14 @@
+.DS_Store
+.env
+__pycache__/
+*.pyc
+*.sqlite
+node_modules/
+# PlatformIO and local build environments
+.pio/
+.platformio/
+.buildenv/
+# Never commit credentials or private build output
+api-key
+wifi.json
+live_voice_secrets.h
